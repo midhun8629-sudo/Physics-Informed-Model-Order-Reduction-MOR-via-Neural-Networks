@@ -40,4 +40,4 @@ Multivariate Regression / Time-Series Surrogate Modeling / Reduced Order Modelin
 
 ## Cover Image
 
-![Project Cover Image](CoverImage/I.png)
+![Project Cover Image](CoverImage/Cover Image.png)
