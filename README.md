@@ -38,6 +38,4 @@ Multivariate Regression / Time-Series Surrogate Modeling / Reduced Order Modelin
 4. **[Model Definition and Evaluation](3_Model/Physics_Informed_Model_Order_Reduction_via_Neural_Networks (1).ipynb)**
 5. **[Presentation](4_Presentation/README.md)**
 
-## Cover Image
 
-![Project Cover Image](CoverImage/Cover Image.png)
