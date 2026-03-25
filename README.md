@@ -1,77 +1,44 @@
-# [Physics-Informed Surrogates, Digital Twins, and Inverse Solvers]
+# Physics-Informed Surrogates, Digital Twins, and Inverse Solvers
 
 ## Repository Link
 
-[https://github.com/your_username/your_project_name]
+[https://github.com/your_username/Physics_Informed_Model_Order_Reduction]
 
 ## Description
-
-[This repository contains a suite of advanced Physics-Informed Machine Learning (PIML) architectures designed to accelerate computational engineering workflows. The code focuses on bridging the gap between high-fidelity traditional solvers (FEM, DFT, LBM) and real-time execution constraints.
-
-The work covers five distinct regimes of materials engineering, ranging from macroscopic digital twins to quantum-scale atomic potentials, achieving speedups of 300x to 1000x while maintaining predictive accuracy within 4%.]
+This repository contains a robust computational framework designed to accelerate high-fidelity finite element method (FEM) simulations (such as those typically executed in Abaqus or COMSOL). By coupling Singular Value Decomposition (SVD) for dimensionality reduction with deep neural networks built in PyTorch, this project creates a near real-time surrogate model. The framework maps temporal and parametric inputs directly to a reduced physical state, acting as a highly efficient digital twin for transient materials engineering problems while circumventing the computational bottleneck of traditional numerical solvers.
 
 ### Task Type
-
-[Core: Python 3.x, PyTorch (CUDA-accelerated)
-Scientific Computing: NumPy, SciPy, Matplotlib, Pandas
-Domain Solvers (Data Generation): Abaqus, COMSOL, VASP (via parsers)
-Techniques: Model Order Reduction (POD/SVD), DeepONets, Active Learning, PINNs]
+Multivariate Regression / Time-Series Surrogate Modeling / Reduced Order Modeling (ROM)
 
 ### Results Summary
 
-### 1. Real-Time Digital Twin for EV Motors (PI-MOR)
-**Objective:** Enable millisecond-scale prediction of electromagnetic fields in Electric Vehicle motors for embedded control.
-* **Method:** Physics-Informed Model Order Reduction (PI-MOR). Combines Proper Orthogonal Decomposition (POD) for spatial compression ($N=10,000 \to r=6$) with a Neural Network for temporal dynamics.
-* **Key Result:** Inference time **< 1ms** with **99.5% data compression** and <5% relative error.
-* **Status:** ✅ Complete (Benchmarked against Standard PINNs).
+* **Key Result:** Successfully replaced a computationally heavy 10,000-degree-of-freedom transient FEM solver with a deep learning surrogate, achieving real-time inference speeds while maintaining strict physical accuracy.
 
-### 2. CAE-ROMs for Turbulence Modeling
-**Objective:** Accelerate Fluid Dynamics (CFD) simulations for complex flow regimes.
-* **Method:** Reduced Order Modeling (ROM) applied to Navier-Stokes equations, utilizing deep learning surrogates to approximate turbulent flow features without solving the full DNS/LES grid.
-* **Key Result:** Stabilized flow prediction with significant reduction in computational cost compared to Lattice Boltzmann Methods (LBM).
-* **Status:** 🚧 In Progress / Refinement.
-
-### 3. Symmetry-Invariant Quantum PINNs
-**Objective:** Predict atomic potentials with Density Functional Theory (DFT) accuracy at a fraction of the cost.
-* **Method:** A specialized PINN architecture that enforces rotational and translational symmetry constraints (SO(3) invariance) directly within the network structure.
-* **Key Result:** Accurate potential energy surface (PES) mapping for crystalline structures.
-* **Status:** ✅ Complete.
-
-### 4. Universal DeepONets for Constitutive Laws
-**Objective:** Learn resolution-independent material laws (Stress-Strain relationships) for continuum mechanics.
-* **Method:** Implementation of Deep Operator Networks (DeepONets) to learn the mapping between strain history functions and stress response functionals, bypassing iterative Newton-Raphson solvers.
-* **Key Result:** Predictive accuracy of **95.2%** on non-linear hyperelastic materials.
-* **Status:** ✅ Complete.
-
-### 5. Autonomous Defect Detection (Inverse PINN)
-**Objective:** Solve the "Data Scarcity" bottleneck in Non-Destructive Testing (NDT) for identifying subsurface material defects.
-* **Method:** Adaptive Active Learning with a "Crystal Growth" acquisition function. An ensemble of PINNs ($M=5$) quantifies uncertainty to autonomously guide sensor placement.
-* **Key Result:** High-fidelity defect reconstruction using only **99 sensors** (vs. 3000+ baseline), achieving a **96% reduction** in data requirements.
-* **Status:** ✅ Complete.
 #### Best Model Performance
-- **Best Model:** [Name and type of the best-performing model"]
-- **Evaluation Metric:** [Primary metric used, e.g., Accuracy, F1-Score, MSE, MAE]
-- **Final Performance:** [Best score achieved, e.g., 95% accuracy, F1-score of 0.87, MSE of 0.12]
+- **Best Model:** PyTorch Multilayer Perceptron (MLP) operating on an SVD-reduced latent space.
+- **Evaluation Metric:** Relative $L_2$ Error (computational mechanics standard) and Mean Squared Error (MSE).
+- **Final Performance:** Achieved highly accurate spatial reconstruction of the physical field across 50 time steps, minimizing the $L_2$ norm of the residual error matrix.
 
 #### Model Comparison
-- **Baseline Performance:** [Baseline model performance for comparison]
-- **Improvement Over Baseline:** [Quantitative improvement, e.g., "+12% accuracy", "25% reduction in MSE"]
-- **Best Alternative Model:** [Second-best model and its performance]
+- **Baseline Performance:** SVD coupled with a classical Linear Regression model.
+- **Improvement Over Baseline:** Significant reduction in reconstruction error. The neural network successfully captured complex, non-linear transient dynamics that the linear baseline underfit and failed to predict.
+- **Best Alternative Model:** Proper Generalized Decomposition (PGD) or purely linear Proper Orthogonal Decomposition (POD).
 
 #### Key Insights
-- **Most Important Features:** [Top 3-5 features that drive model performance]
-- **Model Strengths:** [What the model does well]
-- **Model Limitations:** [Known limitations and failure cases]
-- **Business Impact:** [Practical implications of the model performance]
+- **Most Important Features:** The top $r=2$ to $r=6$ dominant spatial modes extracted via SVD, which capture the vast majority of the thermodynamic or mechanical variance in the system.
+- **Model Strengths:** Delivers near-zero latency predictions; maintains physical interpretability by projecting neural network outputs back onto an orthogonal, mathematically sound spatial basis.
+- **Model Limitations:** The data-driven nature of the SVD requires pre-computed high-fidelity snapshot matrices; purely data-driven MLPs may struggle to extrapolate outside the original training parameter domain without explicit PDE-loss regularization (PINN integration).
+- **Academic & Engineering Impact:** Enables the rapid prototyping of material structures and the deployment of real-time digital twins. This massive reduction in computational cost is critical for multi-scale modeling, optimization loops, and inverse problem-solving in advanced computational mechanics pipelines.
 
 ## Documentation
 
 1. **[Literature Review](0_LiteratureReview/README.md)**
 2. **[Dataset Characteristics](1_DatasetCharacteristics/exploratory_data_analysis.ipynb)**
 3. **[Baseline Model](2_BaselineModel/baseline_model.ipynb)**
-4. **[Model Definition and Evaluation](3_Model/model_definition_evaluation)**
+4. **[Model Definition and Evaluation](3_Model/Physics_Informed_Model_Order_Reduction_via_Neural_Networks (1).ipynb)**
 5. **[Presentation](4_Presentation/README.md)**
 
 ## Cover Image
 
 ![Project Cover Image](CoverImage/cover_image.png)
+*(Note: Ensure you place a relevant visualization here, such as a side-by-side contour plot comparing the exact FEM solution to the Neural Network reconstruction).*
