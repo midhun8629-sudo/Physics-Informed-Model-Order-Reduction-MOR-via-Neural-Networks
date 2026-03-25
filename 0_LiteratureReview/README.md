@@ -33,5 +33,3 @@ The literature curated in this project specifically informs the development of:
 2.  **Physics-Informed Architecture:** Embedding governing physical equations directly into the training process (e.g., via custom PDE loss functions in PyTorch) to ensure predictions obey fundamental conservation laws.
 3.  **Real-Time Surrogates:** Replacing computationally expensive full-order models with fast, data-driven surrogates for rapid engineering design and evaluation.
 
-## How to Contribute
-If adding new papers to this repository, please include the full citation, a link to the paper, and a 2-3 sentence summary of how its methodology applies to our MOR/PINN pipeline.
